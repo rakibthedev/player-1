@@ -4152,3 +4152,8 @@
     opacity: 0;
   }
 }
+
+
+.animate-pulse-glow {
+    animation: unset !important;
+}
