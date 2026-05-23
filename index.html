@@ -1,0 +1,1394 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="preload" as="image" href="./assets/player1-logo-lBeeIn9W.png" />
+  <link rel="preload" as="image" href="./assets/hero-arcade-DlBj_60S.jpg" />
+  <link rel="stylesheet" href="./assets/styles.css" data-precedence="default" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&display=swap" rel="stylesheet" />
+  <meta name="author" content="Player 1 Arcade" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@player1" />
+  <meta name="twitter:title" content="Player 1" />
+  <meta name="twitter:description" content="Your neighbourhood arcade. 50+ card-powered games, private party packages, and nights that glow." />
+  <title>Player 1 Arcade — Card-Powered Fun in Every Pixel</title>
+  <meta name="description" content="Your neighbourhood arcade. 50+ card-powered games, private party packages, and nights that glow. No coins, just play." />
+  <meta property="og:title" content="Player 1 Arcade" />
+  <meta property="og:description" content="50+ card-powered games and unforgettable party packages. No coins, just play." />
+
+  <style>
+    /* ─── Premium Enhancement Layer ─────────────────────────────────── */
+    :root {
+      --neon-magenta: #ff3cac;
+      --neon-cyan: #00f5d4;
+      --neon-yellow: #ffe600;
+      --neon-purple: #9b5de5;
+      --glow-sm: 0 0 8px currentColor;
+      --glow-md: 0 0 20px currentColor, 0 0 40px currentColor;
+    }
+
+    /* Scroll animations */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes scanLine {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
+    }
+    @keyframes glitch {
+      0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+      10% { clip-path: inset(10% 0 60% 0); transform: translate(-4px, 2px); }
+      20% { clip-path: inset(60% 0 10% 0); transform: translate(4px, -2px); }
+      30% { clip-path: inset(30% 0 40% 0); transform: translate(-2px, 0); }
+      40% { clip-path: inset(80% 0 5%  0); transform: translate(2px, 1px);  }
+      50% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+    }
+    @keyframes countUp {
+      from { opacity:0; transform: scale(0.6); }
+      to   { opacity:1; transform: scale(1); }
+    }
+    @keyframes borderGlow {
+      0%,100% { box-shadow: 0 0 10px rgba(255,60,172,0.3), inset 0 0 10px rgba(255,60,172,0.05); }
+      50%      { box-shadow: 0 0 30px rgba(255,60,172,0.6), inset 0 0 20px rgba(255,60,172,0.1); }
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s cubic-bezier(.16,1,.3,1), transform 0.7s cubic-bezier(.16,1,.3,1);
+    }
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.3s; }
+    .reveal-delay-4 { transition-delay: 0.4s; }
+
+    /* ── Scan-line overlay ─────── */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.04) 2px,
+        rgba(0,0,0,0.04) 4px
+      );
+      z-index: 9999;
+    }
+
+    /* ── Premium mobile nav ─────── */
+    #mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      padding: 16px 20px 20px;
+      border-top: 1px solid var(--border);
+      background: color-mix(in oklab, var(--background) 95%, transparent);
+      backdrop-filter: blur(24px);
+    }
+    #mobile-nav.open { display: flex; }
+    #mobile-nav a {
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--muted-foreground);
+      transition: all 0.15s;
+    }
+    #mobile-nav a:hover, #mobile-nav a.active-link {
+      background: var(--card);
+      color: var(--foreground);
+    }
+    #mobile-nav .cta-mobile {
+      margin-top: 8px;
+      background: var(--accent);
+      color: var(--accent-foreground);
+      text-align: center;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    /* ── Hero enhancements ──────── */
+    .hero-bg-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(80px);
+      pointer-events: none;
+    }
+    .hero-bg-orb-1 {
+      width: 600px; height: 600px;
+      top: -200px; left: -100px;
+      background: radial-gradient(circle, rgba(255,60,172,0.18) 0%, transparent 70%);
+    }
+    .hero-bg-orb-2 {
+      width: 500px; height: 500px;
+      bottom: -100px; right: -100px;
+      background: radial-gradient(circle, rgba(0,245,212,0.14) 0%, transparent 70%);
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 5px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,60,172,0.35);
+      background: rgba(255,60,172,0.08);
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--neon-magenta);
+      margin-bottom: 20px;
+      animation: fadeIn 0.6s ease both;
+    }
+    .hero-badge-dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--neon-magenta);
+      box-shadow: 0 0 8px var(--neon-magenta);
+      animation: var(--animate-pulse);
+    }
+
+    /* ── Stats bar ──────────────── */
+    .stats-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      overflow: hidden;
+      max-width: 560px;
+    }
+    .stat-cell {
+      background: color-mix(in oklab, var(--card) 80%, transparent);
+      padding: 18px 24px;
+      transition: background 0.2s;
+    }
+    .stat-cell:hover { background: var(--card); }
+    .stat-num {
+      font-family: var(--font-display, 'Outfit', sans-serif);
+      font-size: 2.2rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .stat-label {
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--muted-foreground);
+      margin-top: 4px;
+    }
+
+    /* ── How it works ───────────── */
+    .steps-section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 2px;
+      background: var(--border);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      overflow: hidden;
+      margin-top: 60px;
+    }
+    .step-card {
+      background: var(--card);
+      padding: 40px 32px;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .step-card:hover { background: color-mix(in oklab, var(--card) 80%, var(--primary)); }
+    .step-num {
+      font-family: var(--font-display, 'Outfit', sans-serif);
+      font-size: 4rem;
+      font-weight: 900;
+      line-height: 1;
+      letter-spacing: -0.06em;
+      background: linear-gradient(135deg, var(--neon-magenta) 0%, transparent 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      opacity: 0.25;
+      position: absolute;
+      top: 24px; right: 24px;
+    }
+    .step-icon {
+      width: 52px; height: 52px;
+      border-radius: 14px;
+      display: grid;
+      place-items: center;
+      margin-bottom: 20px;
+    }
+    .step-title {
+      font-family: var(--font-display, 'Outfit', sans-serif);
+      font-size: 1.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+    }
+    .step-body { font-size: 0.875rem; color: var(--muted-foreground); line-height: 1.6; }
+
+    /* ── Testimonials ───────────── */
+    .testimonials-section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card) 30%, transparent);
+      overflow: hidden;
+    }
+    .testimonials-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 48px;
+    }
+    .testimonial-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      transition: transform 0.25s, box-shadow 0.25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .testimonial-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px rgba(0,0,0,0.3);
+    }
+    .testimonial-card::before {
+      content: '"';
+      position: absolute;
+      top: 16px; right: 24px;
+      font-size: 5rem;
+      font-family: Georgia, serif;
+      line-height: 1;
+      color: var(--neon-magenta);
+      opacity: 0.12;
+    }
+    .testimonial-stars { display: flex; gap: 3px; margin-bottom: 14px; }
+    .testimonial-star { color: var(--neon-yellow); font-size: 0.9rem; }
+    .testimonial-text { font-size: 0.9375rem; line-height: 1.65; color: var(--foreground); margin-bottom: 20px; }
+    .testimonial-author { display: flex; align-items: center; gap: 12px; }
+    .testimonial-avatar {
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      font-weight: 800;
+      font-size: 0.875rem;
+      font-family: var(--font-display);
+    }
+    .testimonial-name { font-weight: 700; font-size: 0.875rem; }
+    .testimonial-meta { font-size: 0.75rem; color: var(--muted-foreground); }
+
+    /* ── Party packages ─────────── */
+    .party-section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .party-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 52px;
+    }
+    .party-card {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      background: var(--card);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .party-card:hover { transform: translateY(-5px); }
+    .party-card.featured {
+      border-color: var(--neon-magenta);
+      box-shadow: 0 0 0 1px var(--neon-magenta), 0 0 40px rgba(255,60,172,0.15);
+      animation: borderGlow 3s ease-in-out infinite;
+    }
+    .party-badge {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .party-price {
+      font-family: var(--font-display, 'Outfit', sans-serif);
+      font-size: 2.75rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .party-price-sub { font-size: 0.8125rem; color: var(--muted-foreground); margin-top: 4px; }
+    .party-name {
+      font-family: var(--font-display, 'Outfit', sans-serif);
+      font-size: 1.375rem;
+      font-weight: 800;
+      margin: 16px 0 8px;
+    }
+    .party-desc { font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 20px; line-height: 1.6; }
+    .party-features { list-style: none; padding: 0; margin: 0 0 28px; display: flex; flex-direction: column; gap: 8px; }
+    .party-feature { display: flex; align-items: flex-start; gap: 8px; font-size: 0.875rem; }
+    .party-feature-check { color: var(--neon-cyan); flex-shrink: 0; margin-top: 2px; }
+    .party-cta {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border-radius: 14px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    /* ── Gallery strip ──────────── */
+    .gallery-section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .gallery-masonry {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      grid-template-rows: 200px 200px;
+      gap: 12px;
+      margin-top: 48px;
+    }
+    @media (max-width: 768px) {
+      .gallery-masonry {
+        grid-template-columns: repeat(2, 1fr);
+        grid-template-rows: 160px 160px 160px;
+      }
+      .gallery-item-tall { grid-row: span 1 !important; }
+    }
+    .gallery-item {
+      border-radius: 16px;
+      overflow: hidden;
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--border);
+    }
+    .gallery-item-tall { grid-row: span 2; }
+    .gallery-item-wide { grid-column: span 2; }
+    .gallery-placeholder {
+      width: 100%;
+      height: 100%;
+      display: grid;
+      place-items: center;
+      font-size: 3rem;
+      background: var(--card);
+      transition: transform 0.4s;
+    }
+    .gallery-item:hover .gallery-placeholder { transform: scale(1.05); }
+    .gallery-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.7) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s;
+      display: flex;
+      align-items: flex-end;
+      padding: 16px;
+    }
+    .gallery-item:hover .gallery-overlay { opacity: 1; }
+    .gallery-caption { font-size: 0.8125rem; font-weight: 700; }
+
+    /* ── FAQ section ────────────── */
+    .faq-section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+      background: color-mix(in oklab, var(--card) 20%, transparent);
+    }
+    .faq-list { max-width: 720px; margin: 52px auto 0; display: flex; flex-direction: column; gap: 8px; }
+    .faq-item {
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      background: var(--card);
+      transition: border-color 0.2s;
+    }
+    .faq-item:hover { border-color: rgba(255,60,172,0.4); }
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 20px 24px;
+      cursor: pointer;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      user-select: none;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      color: var(--foreground);
+    }
+    .faq-chevron {
+      width: 18px; height: 18px;
+      flex-shrink: 0;
+      transition: transform 0.3s;
+      color: var(--muted-foreground);
+    }
+    .faq-item.open .faq-chevron { transform: rotate(180deg); }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s cubic-bezier(.16,1,.3,1);
+      padding: 0 24px;
+      font-size: 0.9rem;
+      color: var(--muted-foreground);
+      line-height: 1.7;
+    }
+    .faq-item.open .faq-a { max-height: 200px; padding-bottom: 20px; }
+
+    /* ── Contact section (inline) ── */
+    .contact-section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+      position: relative;
+      overflow: hidden;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1.3fr;
+      gap: 48px;
+      align-items: start;
+    }
+    @media (max-width: 1024px) {
+      .contact-grid { grid-template-columns: 1fr; }
+    }
+    .contact-info-cards { display: flex; flex-direction: column; gap: 12px; }
+    .contact-info-card {
+      display: flex;
+      gap: 16px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      padding: 18px 20px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .contact-info-card:hover { border-color: rgba(255,60,172,0.4); transform: translateX(4px); }
+    .contact-icon-wrap {
+      width: 44px; height: 44px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      background: var(--background);
+    }
+    .contact-form-wrap {
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      padding: 40px;
+      box-shadow: 0 0 0 1px rgba(255,60,172,0.12), 0 32px 64px rgba(0,0,0,0.2);
+    }
+    .p1-input {
+      width: 100%;
+      background: color-mix(in oklab, var(--background) 85%, transparent);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 0.75rem 1rem;
+      color: var(--foreground);
+      font: inherit;
+      outline: none;
+      transition: border-color .15s, box-shadow .15s;
+    }
+    .p1-input:focus {
+      border-color: var(--neon-magenta);
+      box-shadow: 0 0 0 3px color-mix(in oklab, var(--neon-magenta) 25%, transparent);
+    }
+    .p1-input::placeholder { color: color-mix(in oklab, var(--muted-foreground) 70%, transparent); }
+    .p1-input-label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--foreground);
+    }
+    .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 560px) { .form-grid { grid-template-columns: 1fr; } }
+    .form-success {
+      display: none;
+      text-align: center;
+      padding: 40px 20px;
+    }
+    .form-success-icon { margin-bottom: 16px; display: flex; justify-content: center; }
+
+    /* ── CTA bottom banner ──────── */
+    .cta-banner {
+      padding: 80px 20px;
+      background: linear-gradient(135deg,
+        rgba(255,60,172,0.12) 0%,
+        rgba(0,245,212,0.07) 50%,
+        rgba(255,230,0,0.08) 100%
+      );
+      border-top: 1px solid var(--border);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .cta-banner::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--bg-grid);
+      opacity: 0.2;
+    }
+
+    /* ── Utilities ──────────────── */
+    .gradient-neon-text {
+      /* background: linear-gradient(90deg, var(--neon-magenta), var(--neon-cyan), var(--neon-yellow)); */
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .section-eyebrow {
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+    .section-title {
+      font-family: var(--font-display, 'Outfit', sans-serif);
+      font-size: clamp(2rem, 4vw, 3.25rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .section-desc {
+      font-size: 1rem;
+      color: var(--muted-foreground);
+      max-width: 520px;
+      line-height: 1.7;
+    }
+    .page-container { max-width: 1280px; margin: 0 auto; padding: 0 20px; }
+    .divider-accent {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--neon-magenta), transparent);
+      opacity: 0.4;
+    }
+    /* ── Logo-inspired color palette enhancements ── */
+    :root {
+      --logo-blue-light: #4dd9f0;
+      --logo-blue-mid: #3a9bd5;
+      --logo-blue-dark: #1e5fa8;
+      --logo-orange: #f5a623;
+      --logo-orange-hot: #f0612e;
+      --logo-magenta-glow: #ff2e9f;
+      --logo-cyan-glow: #00e8ff;
+    }
+
+    /* ── Hero CTA buttons (clean, no Tailwind conflicts) ── */
+    .hero-cta-row {
+      margin-top: 36px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+      align-items: center;
+    }
+    .hero-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 14px 32px;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      font-family: var(--font-display, 'Outfit', sans-serif);
+      color: #fff;
+      background: linear-gradient(135deg, var(--logo-blue-light) 0%, var(--logo-blue-dark) 100%);
+      box-shadow: 0 0 0 1px rgba(77,217,240,0.3), 0 0 24px rgba(77,217,240,0.25), 0 4px 20px rgba(0,0,0,0.3);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+    .hero-btn-primary:hover {
+      transform: translateY(-2px) scale(1.03);
+      box-shadow: 0 0 0 1px rgba(77,217,240,0.5), 0 0 40px rgba(77,217,240,0.4), 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .hero-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      border-radius: 999px;
+      padding: 13px 30px;
+      font-size: 0.9375rem;
+      font-weight: 700;
+      font-family: var(--font-display, 'Outfit', sans-serif);
+      color: var(--logo-orange);
+      background: rgba(245,166,35,0.08);
+      border: 1.5px solid rgba(245,166,35,0.4);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      backdrop-filter: blur(12px);
+    }
+    .hero-btn-secondary:hover {
+      transform: translateY(-2px) scale(1.03);
+      background: rgba(245,166,35,0.15);
+      border-color: rgba(245,166,35,0.7);
+      box-shadow: 0 0 24px rgba(245,166,35,0.25), 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    /* ── Bottom CTA banner buttons ── */
+    .cta-btn-row {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 14px;
+      align-items: center;
+    }
+    .cta-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 14px 36px;
+      font-size: 1rem;
+      font-weight: 700;
+      font-family: var(--font-display, 'Outfit', sans-serif);
+      color: #0a0a0a;
+      background: linear-gradient(135deg, var(--logo-orange) 0%, var(--logo-orange-hot) 100%);
+      box-shadow: 0 0 0 1px rgba(245,166,35,0.3), 0 0 28px rgba(245,166,35,0.3), 0 4px 20px rgba(0,0,0,0.3);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+    }
+    .cta-btn-primary:hover {
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 0 0 1px rgba(245,166,35,0.5), 0 0 48px rgba(245,166,35,0.4), 0 8px 32px rgba(0,0,0,0.4);
+    }
+    .cta-btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 13px 34px;
+      font-size: 1rem;
+      font-weight: 600;
+      font-family: var(--font-display, 'Outfit', sans-serif);
+      color: var(--logo-cyan-glow);
+      background: rgba(0,232,255,0.06);
+      border: 1.5px solid rgba(0,232,255,0.3);
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+      letter-spacing: 0.01em;
+      white-space: nowrap;
+      backdrop-filter: blur(12px);
+    }
+    .cta-btn-secondary:hover {
+      transform: translateY(-2px) scale(1.03);
+      background: rgba(0,232,255,0.12);
+      border-color: rgba(0,232,255,0.6);
+      box-shadow: 0 0 28px rgba(0,232,255,0.2), 0 4px 20px rgba(0,0,0,0.3);
+    }
+
+    /* ── Enhanced hero badge with logo cyan ── */
+    .hero-badge {
+      border-color: rgba(77,217,240,0.45) !important;
+      background: rgba(77,217,240,0.08) !important;
+      color: var(--logo-cyan-glow) !important;
+    }
+    .hero-badge-dot {
+      background: var(--logo-cyan-glow) !important;
+      box-shadow: 0 0 8px var(--logo-cyan-glow) !important;
+    }
+
+    /* ── Enhanced stat strip with logo colors ── */
+    .stat-cell:nth-child(1) .stat-num { 
+      background: linear-gradient(135deg, var(--logo-blue-light), var(--logo-blue-dark));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-cell:nth-child(2) .stat-num { 
+      background: linear-gradient(135deg, var(--logo-cyan-glow), var(--logo-blue-mid));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-cell:nth-child(3) .stat-num { 
+      background: linear-gradient(135deg, var(--logo-orange), var(--logo-orange-hot));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    /* ── Enhanced CTA banner bg with logo colors ── */
+    .cta-banner {
+      background: linear-gradient(135deg,
+        rgba(77,217,240,0.1) 0%,
+        rgba(30,95,168,0.08) 40%,
+        rgba(245,166,35,0.1) 70%,
+        rgba(240,97,46,0.08) 100%
+      ) !important;
+    }
+    .cta-banner::after {
+      content: '';
+      position: absolute;
+      width: 500px; height: 500px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(77,217,240,0.06) 0%, transparent 70%);
+      top: -150px; left: -100px;
+      pointer-events: none;
+    }
+	/* Fix pixelated hero text */
+	.animate-rainbow {
+	animation: none !important;
+	filter: none !important;
+	background: linear-gradient(95deg, var(--neon-magenta), var(--neon-yellow) 45%, var(--neon-cyan));
+	-webkit-background-clip: text;
+	-webkit-text-fill-color: transparent;
+	background-clip: text;
+	-webkit-font-smoothing: antialiased;
+	}
+
+	.animate-flicker {
+	animation: none !important;
+	opacity: 1 !important;
+	-webkit-font-smoothing: antialiased;
+	}
+	
+  </style>
+</head>
+
+<body>
+<div class="flex min-h-screen flex-col bg-background">
+
+  <!-- ═══════════════════ HEADER ═══════════════════ -->
+  <header class="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+    <div class="page-container">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;">
+        <a aria-label="Player 1 home" href="/" class="group flex items-center">
+          <img alt="Player 1 arcade logo" class="h-10 w-auto md:h-12 animate-pulse-glow transition-transform group-hover:scale-105" src="./assets/player1-logo-lBeeIn9W.png" />
+        </a>
+        <nav class="hidden items-center gap-1 md:flex">
+          <a href="/" class="rounded-full px-4 py-2 text-sm font-medium text-foreground bg-muted">Home</a>
+          <a href="/about.html" class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground">About</a>
+          <a href="/games.html" class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground">Games</a>
+          <a href="/parties.html" class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground">Parties</a>
+          <a href="#contact" class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground">Contact</a>
+          <a href="#contact" class="ml-3 rounded-full bg-accent px-5 py-2 text-sm font-bold text-accent-foreground transition hover:scale-105 ring-glow-yellow">Plan a Visit</a>
+        </nav>
+        <button id="menu-btn" class="md:hidden rounded-md p-2 text-foreground" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Nav -->
+    <div id="mobile-nav">
+      <a href="/" class="active-link">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/games.html">Games</a>
+      <a href="/parties.html">Parties</a>
+      <a href="#contact">Contact</a>
+      <a href="#contact" class="cta-mobile">Plan a Visit ↗</a>
+    </div>
+  </header>
+
+  <main class="flex-1">
+
+    <!-- ═══════════════════ HERO ═══════════════════ -->
+    <section class="relative overflow-hidden" style="min-height:92vh;display:flex;align-items:center;">
+      <!-- BG Image -->
+      <div class="absolute inset-0">
+        <img alt="Bright neon arcade interior" width="1920" height="1280" class="h-full w-full object-cover" style="opacity:0.45;" src="./assets/hero-arcade-DlBj_60S.jpg" />
+        <div class="absolute inset-0" style="background:linear-gradient(to bottom, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.3) 40%, var(--background) 100%)"></div>
+        <div class="absolute inset-0 bg-grid opacity-30"></div>
+      </div>
+      <!-- Orbs -->
+      <div class="hero-bg-orb hero-bg-orb-1"></div>
+      <div class="hero-bg-orb hero-bg-orb-2"></div>
+
+      <div class="page-container relative" style="padding-top:100px;padding-bottom:100px;width:100%;">
+        <!-- Badge -->
+        <div class="hero-badge reveal">
+          <span class="hero-badge-dot"></span>
+          Now open 7 days · 50+ games
+        </div>
+
+        <!-- Headline -->
+        <h1 class="reveal" style="font-family:var(--font-display,'Outfit',sans-serif);font-size:clamp(3rem,9vw,6.5rem);font-weight:900;letter-spacing:-0.04em;line-height:0.95;max-width:900px;">
+          <span class="text-primary animate-flicker">Press</span>
+          <span> start</span><br/>
+          <span class="gradient-neon-text animate-rainbow inline-block">on your night.</span>
+        </h1>
+
+        <p class="reveal reveal-delay-1" style="margin-top:24px;max-width:520px;font-size:1.125rem;color:var(--muted-foreground);line-height:1.7;">
+          Step into a bright, buzzing arcade where every cabinet glows and every visit is yours to remember. Tap your play card, pick a game, and go.
+        </p>
+
+        <!-- CTAs -->
+        <div class="reveal reveal-delay-2 hero-cta-row">
+          <a href="/games.html" class="hero-btn-primary">
+            Explore Games
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+          <a href="/parties.html" class="hero-btn-secondary">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"/></svg>
+            Book a Party
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="reveal reveal-delay-3" style="margin-top:56px;">
+          <div class="stats-strip">
+            <div class="stat-cell">
+              <div class="stat-num text-primary">50+</div>
+              <div class="stat-label">Games</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-num text-secondary">7</div>
+              <div class="stat-label">Days open</div>
+            </div>
+            <div class="stat-cell">
+              <div class="stat-num text-accent">0</div>
+              <div class="stat-label">Coins needed</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ MARQUEE ═══════════════════ -->
+    <div class="overflow-hidden border-y border-border bg-card/30 py-4">
+      <div class="flex w-max animate-marquee gap-12 whitespace-nowrap font-display text-2xl font-extrabold uppercase tracking-wide">
+        <div class="flex gap-12">
+          <span class="text-primary text-glow-magenta">Racing</span><span class="text-foreground">★</span>
+          <span class="text-secondary text-glow-cyan">Air Hockey</span><span class="text-foreground">★</span>
+          <span class="text-accent text-glow-yellow">Claw Machines</span><span class="text-foreground">★</span>
+          <span class="text-primary text-glow-magenta">Basketball</span><span class="text-foreground">★</span>
+          <span class="text-secondary text-glow-cyan">Dance Off</span><span class="text-foreground">★</span>
+          <span class="text-accent text-glow-yellow">Shooters</span><span class="text-foreground">★</span>
+          <span class="text-primary text-glow-magenta">VR Zone</span><span class="text-foreground">★</span>
+          <span class="text-secondary text-glow-cyan">Pinball</span><span class="text-foreground">★</span>
+        </div>
+        <div class="flex gap-12" aria-hidden="true">
+          <span class="text-primary text-glow-magenta">Racing</span><span class="text-foreground">★</span>
+          <span class="text-secondary text-glow-cyan">Air Hockey</span><span class="text-foreground">★</span>
+          <span class="text-accent text-glow-yellow">Claw Machines</span><span class="text-foreground">★</span>
+          <span class="text-primary text-glow-magenta">Basketball</span><span class="text-foreground">★</span>
+          <span class="text-secondary text-glow-cyan">Dance Off</span><span class="text-foreground">★</span>
+          <span class="text-accent text-glow-yellow">Shooters</span><span class="text-foreground">★</span>
+          <span class="text-primary text-glow-magenta">VR Zone</span><span class="text-foreground">★</span>
+          <span class="text-secondary text-glow-cyan">Pinball</span><span class="text-foreground">★</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ═══════════════════ FEATURES ═══════════════════ -->
+    <section style="padding:100px 0;border-top:1px solid var(--border);">
+      <div class="page-container">
+        <div style="display:grid;gap:48px;" class="lg:grid-cols-[1fr_2fr]" id="features-grid">
+          <div>
+            <div class="section-eyebrow text-accent reveal">Why Player 1</div>
+            <h2 class="section-title reveal reveal-delay-1">Built for <span class="text-accent text-glow__-yellow">play</span>,<br/>not pocket change.</h2>
+            <p class="section-desc reveal reveal-delay-2">Forget hunting for tokens. Tap, play, repeat — our card system keeps the energy on the screen, not at the change machine.</p>
+          </div>
+          <div style="display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));">
+            <div class="group rounded-2xl border border-border bg-card p-6 transition hover:-translate-y-1 reveal reveal-delay-1">
+              <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-background ring-glow-magenta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+              </div>
+              <h3 style="font-family:var(--font-display);font-size:1.05rem;font-weight:800;margin-bottom:6px;">Cashless play cards</h3>
+              <p style="font-size:0.875rem;color:var(--muted-foreground);">One card. Every game. Top up at the counter or from your phone.</p>
+            </div>
+            <div class="group rounded-2xl border border-border bg-card p-6 transition hover:-translate-y-1 reveal reveal-delay-2">
+              <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-background ring-glow-cyan">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-secondary"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"/><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"/><path d="M18 9h1.5a1 1 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6 9H4.5a1 1 0 0 1 0-5H6"/></svg>
+              </div>
+              <h3 style="font-family:var(--font-display);font-size:1.05rem;font-weight:800;margin-bottom:6px;">Friendly leaderboards</h3>
+              <p style="font-size:0.875rem;color:var(--muted-foreground);">Local high scores updated daily across every cabinet on the floor.</p>
+            </div>
+            <div class="group rounded-2xl border border-border bg-card p-6 transition hover:-translate-y-1 reveal reveal-delay-3">
+              <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-background ring-glow-yellow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent"><path d="M5.8 11.3 2 22l10.7-3.79"/><path d="M4 3h.01"/><path d="M22 8h.01"/><path d="M15 2h.01"/><path d="M22 20h.01"/><path d="m22 2-2.24.75a2.9 2.9 0 0 0-1.96 3.12c.1.86-.57 1.63-1.45 1.63h-.38c-.86 0-1.6.6-1.76 1.44L14 10"/><path d="m22 13-.82-.33c-.86-.34-1.82.2-1.98 1.11c-.11.7-.72 1.22-1.43 1.22H17"/><path d="m11 2 .33.82c.34.86-.2 1.82-1.11 1.98C9.52 4.9 9 5.52 9 6.23V7"/><path d="M11 13c1.93 1.93 2.83 4.17 2 5-.83.83-3.07-.07-5-2-1.93-1.93-2.83-4.17-2-5 .83-.83 3.07.07 5 2Z"/></svg>
+              </div>
+              <h3 style="font-family:var(--font-display);font-size:1.05rem;font-weight:800;margin-bottom:6px;">Party packages</h3>
+              <p style="font-size:0.875rem;color:var(--muted-foreground);">Birthdays, team nights, school holidays — we handle the chaos.</p>
+            </div>
+            <div class="group rounded-2xl border border-border bg-card p-6 transition hover:-translate-y-1 reveal reveal-delay-4">
+              <div class="mb-4 grid h-11 w-11 place-items-center rounded-xl bg-background ring-glow-magenta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary"><path d="M11.017 2.814a1 1 0 0 1 1.966 0l1.051 5.558a2 2 0 0 0 1.594 1.594l5.558 1.051a1 1 0 0 1 0 1.966l-5.558 1.051a2 2 0 0 0-1.594 1.594l-1.051 5.558a1 1 0 0 1-1.966 0l-1.051-5.558a2 2 0 0 0-1.594-1.594l-5.558-1.051a1 1 0 0 1 0-1.966l5.558-1.051a2 2 0 0 0 1.594-1.594z"/><path d="M20 2v4"/><path d="M22 4h-4"/><circle cx="4" cy="20" r="2"/></svg>
+              </div>
+              <h3 style="font-family:var(--font-display);font-size:1.05rem;font-weight:800;margin-bottom:6px;">Always fresh</h3>
+              <p style="font-size:0.875rem;color:var(--muted-foreground);">New cabinets, new prizes, new reasons to come back every season.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ CROWD FAVOURITES ═══════════════════ -->
+    <section class="border-t border-border" style="padding:100px 0;background:color-mix(in oklab, var(--card) 30%, transparent);">
+      <div class="page-container">
+        <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+          <div>
+            <div class="section-eyebrow text-secondary reveal">On the floor</div>
+            <h2 class="section-title reveal reveal-delay-1">Crowd <span class="gradient-neon-text">favourites</span></h2>
+          </div>
+          <a href="/games.html" class="hidden md:inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary reveal">
+            See all games
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+        <div style="margin-top:40px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
+          <div class="group relative overflow-hidden rounded-2xl border border-border bg-background reveal reveal-delay-1">
+            <img alt="Apex Racer" width="1024" height="1280" loading="lazy" class="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-105" src="./assets/game-racing-cP_G6Dh3.jpg" />
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/70 to-transparent p-5">
+              <div class="text-xs uppercase tracking-widest text-primary">Racing</div>
+              <div class="font-display text-2xl font-extrabold">Apex Racer</div>
+            </div>
+          </div>
+          <div class="group relative overflow-hidden rounded-2xl border border-border bg-background reveal reveal-delay-2">
+            <img alt="Hoops Heat" width="1024" height="1280" loading="lazy" class="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-105" src="./assets/game-basketball-DbW0GDyb.jpg" />
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/70 to-transparent p-5">
+              <div class="text-xs uppercase tracking-widest text-accent">Sports</div>
+              <div class="font-display text-2xl font-extrabold">Hoops Heat</div>
+            </div>
+          </div>
+          <div class="group relative overflow-hidden rounded-2xl border border-border bg-background reveal reveal-delay-3">
+            <img alt="Dance Floor" width="1024" height="1280" loading="lazy" class="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-105" src="./assets/game-dance-P5pxon3F.jpg" />
+            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/70 to-transparent p-5">
+              <div class="text-xs uppercase tracking-widest text-secondary">Rhythm</div>
+              <div class="font-display text-2xl font-extrabold">Dance Floor</div>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:32px;text-align:center;">
+          <a href="/games.html" class="md:hidden inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary">
+            See all games
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ HOW IT WORKS ═══════════════════ -->
+    <section class="steps-section">
+      <div class="page-container">
+        <div style="text-align:center;max-width:560px;margin:0 auto;">
+          <div class="section-eyebrow text-primary reveal">Simple as that</div>
+          <h2 class="section-title reveal reveal-delay-1">How it <span class="text-glow__-magenta text-primary">works</span></h2>
+          <p class="section-desc reveal reveal-delay-2" style="margin:0 auto;">From the moment you walk in to the moment you leave — here's what your Player 1 experience looks like.</p>
+        </div>
+        <div class="steps-grid reveal reveal-delay-1">
+          <div class="step-card">
+            <span class="step-num">01</span>
+            <div class="step-icon bg-background ring-glow-magenta">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--neon-magenta)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </div>
+            <div class="step-title">Walk in &amp; get your card</div>
+            <p class="step-body">Grab a play card at the front desk. Load it with credits — the more you load, the more you save.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">02</span>
+            <div class="step-icon bg-background ring-glow-cyan">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+            </div>
+            <div class="step-title">Tap &amp; play anything</div>
+            <p class="step-body">Tap your card on any game reader. No queues, no coins. Just instant action on 50+ machines.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">03</span>
+            <div class="step-icon bg-background ring-glow-yellow">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--neon-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 14.66v1.626a2 2 0 0 1-.976 1.696A5 5 0 0 0 7 21.978"/><path d="M14 14.66v1.626a2 2 0 0 0 .976 1.696A5 5 0 0 1 17 21.978"/><path d="M18 9h1.5a1 1 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M6 9a6 6 0 0 0 12 0V3a1 1 0 0 0-1-1H7a1 1 0 0 0-1 1z"/><path d="M6 9H4.5a1 1 0 0 1 0-5H6"/></svg>
+            </div>
+            <div class="step-title">Earn tickets &amp; win</div>
+            <p class="step-body">Score big, collect digital tickets, and redeem them for prizes at our prize wall. Take on the leaderboard.</p>
+          </div>
+          <div class="step-card">
+            <span class="step-num">04</span>
+            <div class="step-icon bg-background ring-glow-magenta">
+              <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--neon-magenta)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            </div>
+            <div class="step-title">Top up &amp; come back</div>
+            <p class="step-body">Credits never expire. Top up any time — at the desk or via our app — and your card remembers you.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ PARTY PACKAGES ═══════════════════ -->
+    <section class="party-section" id="parties">
+      <div class="page-container">
+        <div style="max-width:540px;">
+          <div class="section-eyebrow text-accent reveal">Celebrations</div>
+          <h2 class="section-title reveal reveal-delay-1">Party <span class="gradient-neon-text">packages</span></h2>
+          <p class="section-desc reveal reveal-delay-2">From intimate get-togethers to full venue buyouts — we've got a package to make your event legendary.</p>
+        </div>
+        <div class="party-grid">
+          <!-- Basic -->
+          <div class="party-card reveal reveal-delay-1">
+            <span class="party-badge" style="background:rgba(0,245,212,0.1);color:var(--neon-cyan);">Starter</span>
+            <div class="party-price text-secondary">$149</div>
+            <div class="party-price-sub">up to 8 guests · 2 hours</div>
+            <div class="party-name">Level Up</div>
+            <p class="party-desc">Perfect for smaller groups ready to dive in. Games, snacks, and good vibes guaranteed.</p>
+            <ul class="party-features">
+              <li class="party-feature"><span class="party-feature-check">✓</span> 8 play cards (100 credits each)</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Reserved seating area</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Welcome soft drinks</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Birthday banner</li>
+            </ul>
+            <a href="#contact" class="party-cta" style="background:var(--card);border:1px solid var(--border);color:var(--foreground);">Book this package</a>
+          </div>
+          <!-- Popular -->
+          <div class="party-card featured reveal reveal-delay-2">
+            <span class="party-badge" style="background:rgba(255,60,172,0.15);color:var(--neon-magenta);">Most Popular ★</span>
+            <div class="party-price text-primary">$279</div>
+            <div class="party-price-sub">up to 16 guests · 3 hours</div>
+            <div class="party-name">Power Play</div>
+            <p class="party-desc">Our most-booked package. Everything you need to run a seriously fun party, fully taken care of.</p>
+            <ul class="party-features">
+              <li class="party-feature"><span class="party-feature-check">✓</span> 16 play cards (150 credits each)</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Private party zone</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Pizza &amp; drinks included</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Dedicated party host</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Prize wall voucher</li>
+            </ul>
+            <a href="#contact" class="party-cta" style="background:var(--primary);color:var(--primary-foreground);">Book this package</a>
+          </div>
+          <!-- VIP -->
+          <div class="party-card reveal reveal-delay-3">
+            <span class="party-badge" style="background:rgba(255,230,0,0.1);color:var(--neon-yellow);">VIP</span>
+            <div class="party-price text-accent">$499</div>
+            <div class="party-price-sub">up to 30 guests · full evening</div>
+            <div class="party-name">Full Arcade</div>
+            <p class="party-desc">Exclusive venue access after hours. The whole floor is yours — no sharing, just playing.</p>
+            <ul class="party-features">
+              <li class="party-feature"><span class="party-feature-check">✓</span> Exclusive arcade access</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Unlimited play cards</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Full catering service</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> DJ / music system</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Custom branding &amp; decor</li>
+            </ul>
+            <a href="#contact" class="party-cta" style="background:var(--accent);color:var(--accent-foreground);">Book this package</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ TESTIMONIALS ═══════════════════ -->
+    <section class="testimonials-section">
+      <div class="page-container">
+        <div style="text-align:center;max-width:480px;margin:0 auto;">
+          <div class="section-eyebrow text-secondary reveal">Real players</div>
+          <h2 class="section-title reveal reveal-delay-1">What people <span class="text-glow__-cyan text-secondary">say</span></h2>
+        </div>
+        <div class="testimonials-grid">
+          <div class="testimonial-card reveal reveal-delay-1">
+            <div class="testimonial-stars"><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span></div>
+            <p class="testimonial-text">Took the whole family for my son's 10th birthday. The staff were incredible, the games were clean and working perfectly, and my son hasn't stopped talking about it since!</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" style="background:rgba(255,60,172,0.15);color:var(--neon-magenta);">SL</div>
+              <div><div class="testimonial-name">Sarah L.</div><div class="testimonial-meta">Birthday party · Family</div></div>
+            </div>
+          </div>
+          <div class="testimonial-card reveal reveal-delay-2">
+            <div class="testimonial-stars"><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span></div>
+            <p class="testimonial-text">Best team night out we've had in years. The card system is so smooth — no fussing with coins. We stayed three hours and it felt like twenty minutes.</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" style="background:rgba(0,245,212,0.15);color:var(--neon-cyan);">MK</div>
+              <div><div class="testimonial-name">Marcus K.</div><div class="testimonial-meta">Corporate team event</div></div>
+            </div>
+          </div>
+          <div class="testimonial-card reveal reveal-delay-3">
+            <div class="testimonial-stars"><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span><span class="testimonial-star">★</span></div>
+            <p class="testimonial-text">Honestly the vibe here is unmatched. The neon lighting, the sounds, the variety — it's like stepping into another world. We go at least twice a month.</p>
+            <div class="testimonial-author">
+              <div class="testimonial-avatar" style="background:rgba(255,230,0,0.15);color:var(--neon-yellow);">JP</div>
+              <div><div class="testimonial-name">Jamie P.</div><div class="testimonial-meta">Regular visitor</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ FAQ ═══════════════════ -->
+    <section class="faq-section">
+      <div class="page-container">
+        <div style="text-align:center;max-width:500px;margin:0 auto;">
+          <div class="section-eyebrow text-primary reveal">Got questions?</div>
+          <h2 class="section-title reveal reveal-delay-1">We've got <span class="text-glow__-magenta text-primary">answers</span></h2>
+        </div>
+        <div class="faq-list">
+          <div class="faq-item reveal reveal-delay-1">
+            <button class="faq-q" aria-expanded="false">
+              Do I need to book in advance?
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-a">Walk-ins are always welcome for general play. For parties and private events, we recommend booking at least 2 weeks in advance to secure your preferred date and time.</div>
+          </div>
+          <div class="faq-item reveal reveal-delay-2">
+            <button class="faq-q" aria-expanded="false">
+              How does the card system work?
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-a">Pick up a play card at the front counter and load it with credits. Each game costs a set number of credits — tap your card on the game reader to play. Credits never expire, so you can keep your card and top up on your next visit.</div>
+          </div>
+          <div class="faq-item reveal reveal-delay-3">
+            <button class="faq-q" aria-expanded="false">
+              Is it suitable for young children?
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-a">Absolutely! We have a dedicated family zone with games suited for ages 4 and up. Children under 12 must be accompanied by an adult at all times. Our staff are trained to help young players get the most out of their visit.</div>
+          </div>
+          <div class="faq-item reveal reveal-delay-4">
+            <button class="faq-q" aria-expanded="false">
+              Can I get a refund on unused credits?
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-a">Credits are non-refundable but they never expire. Your card balance carries over to every future visit, so there's no rush to spend them all in one go.</div>
+          </div>
+          <div class="faq-item reveal">
+            <button class="faq-q" aria-expanded="false">
+              Do you offer group discounts?
+              <svg class="faq-chevron" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+            </button>
+            <div class="faq-a">Yes! Groups of 10 or more get a 15% credit bonus on all card top-ups. Corporate bookings and school groups get additional perks — get in touch to discuss what we can put together for you.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ CONTACT ═══════════════════ -->
+    <section class="contact-section" id="contact">
+      <div class="page-container">
+        <div style="margin-bottom:52px;max-width:600px;">
+          <div class="section-eyebrow text-secondary reveal">Get in touch</div>
+          <h2 class="section-title reveal reveal-delay-1">Plan your <span class="gradient-neon-text">visit</span></h2>
+          <p class="section-desc reveal reveal-delay-2">Questions about a party, a visit, or just want to say hi? Drop us a message and we'll get back to you within one business day.</p>
+        </div>
+        <div class="contact-grid">
+          <!-- Info cards -->
+          <div class="contact-info-cards">
+            <div class="contact-info-card reveal reveal-delay-1">
+              <div class="contact-icon-wrap ring-glow-magenta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neon-magenta)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+              </div>
+              <div>
+                <div style="font-family:var(--font-display);font-size:1rem;font-weight:800;margin-bottom:3px;">Visit us</div>
+                <div style="font-size:0.875rem;color:var(--muted-foreground);">123 Highstreet<br/>Your Town, ZIP 00000</div>
+              </div>
+            </div>
+            <div class="contact-info-card reveal reveal-delay-2">
+              <div class="contact-icon-wrap ring-glow-cyan">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neon-cyan)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>
+              </div>
+              <div>
+                <div style="font-family:var(--font-display);font-size:1rem;font-weight:800;margin-bottom:3px;">Call us</div>
+                <div style="font-size:0.875rem;color:var(--muted-foreground);">(555) 010-2025</div>
+              </div>
+            </div>
+            <div class="contact-info-card reveal reveal-delay-3">
+              <div class="contact-icon-wrap ring-glow-yellow">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neon-yellow)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+              </div>
+              <div>
+                <div style="font-family:var(--font-display);font-size:1rem;font-weight:800;margin-bottom:3px;">Email us</div>
+                <div style="font-size:0.875rem;color:var(--muted-foreground);">hello@neonplay.example</div>
+              </div>
+            </div>
+            <div class="contact-info-card reveal reveal-delay-4">
+              <div class="contact-icon-wrap ring-glow-magenta">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--neon-magenta)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+              </div>
+              <div>
+                <div style="font-family:var(--font-display);font-size:1rem;font-weight:800;margin-bottom:3px;">Opening hours</div>
+                <div style="font-size:0.875rem;color:var(--muted-foreground);">Mon–Thu: 12pm – 10pm<br/>Fri–Sat: 11am – midnight<br/>Sun: 11am – 10pm</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Contact form -->
+          <div class="contact-form-wrap reveal reveal-delay-2">
+            <div id="form-main">
+              <h3 style="font-family:var(--font-display,'Outfit',sans-serif);font-size:1.75rem;font-weight:900;margin-bottom:24px;">Send us a message</h3>
+              <div style="display:flex;flex-direction:column;gap:16px;">
+                <div class="form-grid">
+                  <label>
+                    <span class="p1-input-label">Your name</span>
+                    <input maxlength="80" class="p1-input" placeholder="Alex Smith" name="name" type="text" />
+                  </label>
+                  <label>
+                    <span class="p1-input-label">Email address</span>
+                    <input maxlength="160" class="p1-input" placeholder="you@email.com" type="email" name="email" />
+                  </label>
+                </div>
+                <label>
+                  <span class="p1-input-label">What's it about?</span>
+                  <select name="topic" class="p1-input">
+                    <option value="general">General enquiry</option>
+                    <option value="party">Party booking</option>
+                    <option value="private">Private hire</option>
+                    <option value="feedback">Feedback</option>
+                  </select>
+                </label>
+                <label>
+                  <span class="p1-input-label">Message</span>
+                  <textarea name="message" rows="5" maxlength="1000" class="p1-input" style="resize:none;" placeholder="Tell us about your visit or party…"></textarea>
+                </label>
+                <button type="button" id="form-submit" class="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 font-bold text-primary-foreground transition hover:scale-[1.02] ring-glow-magenta w-full" style="cursor:pointer;font-size:0.9375rem;">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg>
+                  Send message
+                </button>
+                <p style="font-size:0.75rem;color:var(--muted-foreground);">By sending you agree we can email you back. We never sell your data.</p>
+              </div>
+            </div>
+            <!-- Success state -->
+            <div class="form-success" id="form-success">
+              <div class="form-success-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#00f5d4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon icon-tabler icons-tabler-outline icon-tabler-circle-check"><path stroke="none" d="M0 0h24v24H0z" fill="none" /><path d="M3 12a9 9 0 1 0 18 0a9 9 0 1 0 -18 0" /><path d="M9 12l2 2l4 -4" /></svg>
+              </div>
+              <h3 style="font-family:var(--font-display);font-size:1.5rem;font-weight:900;margin-bottom:8px;">Message sent!</h3>
+              <p style="color:var(--muted-foreground);font-size:0.9375rem;">Thanks for reaching out. We'll get back to you within one business day. See you on the floor!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ═══════════════════ BOTTOM CTA ═══════════════════ -->
+    <div class="divider-accent"></div>
+    <section class="cta-banner">
+      <div class="relative page-container">
+        <h2 class="section-title reveal" style="margin-bottom:12px;">Ready to <span class="text-glow__-magenta text-primary">play</span>?</h2>
+        <p class="section-desc reveal reveal-delay-1" style="margin:0 auto 32px;text-align:center;">Drop in any day or lock in a private party. We'll save the best seat — right next to the leaderboard.</p>
+        <div class="reveal reveal-delay-2 cta-btn-row">
+          <a href="/parties.html" class="cta-btn-primary">Plan a Party</a>
+          <a href="#contact" class="cta-btn-secondary">Get in Touch</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════════ FOOTER ═══════════════════ -->
+  <footer class="border-t border-border/60 bg-card/40">
+    <div class="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-4">
+      <div class="md:col-span-2">
+        <img alt="Player 1 logo" class="h-14 w-auto animate-pulse-glow" src="./assets/player1-logo-lBeeIn9W.png" />
+        <p class="mt-3 max-w-sm text-sm text-muted-foreground">A bright, card-powered arcade built for nights out, family afternoons and unforgettable parties. No coins. Just play.</p>
+        <div class="mt-5 flex gap-3">
+          <a href="/#" class="rounded-full border border-border p-2 hover:text-primary transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
+          </a>
+          <a href="/#" class="rounded-full border border-border p-2 hover:text-secondary transition">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
+          </a>
+        </div>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold uppercase tracking-wider text-accent">Visit</h4>
+        <ul class="mt-3 space-y-2 text-sm text-muted-foreground">
+          <li class="flex gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-primary mt-0.5 shrink-0"><path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"/><circle cx="12" cy="10" r="3"/></svg>
+            123 Highstreet, Your Town
+          </li>
+          <li class="flex gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-secondary mt-0.5 shrink-0"><path d="M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384"/></svg>
+            (555) 010-2025
+          </li>
+          <li class="flex gap-2">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-accent mt-0.5 shrink-0"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7"/><rect x="2" y="4" width="20" height="16" rx="2"/></svg>
+            hello@neonplay.example
+          </li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold uppercase tracking-wider text-accent">Explore</h4>
+        <ul class="mt-3 space-y-2 text-sm text-muted-foreground">
+          <li><a href="/games.html" class="hover:text-foreground transition">Games Gallery</a></li>
+          <li><a href="/parties.html" class="hover:text-foreground transition">Parties &amp; Events</a></li>
+          <li><a href="/about.html" class="hover:text-foreground transition">About Us</a></li>
+          <li><a href="#contact" class="hover:text-foreground transition">Contact</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="border-t border-border/60 py-5 text-center text-xs text-muted-foreground">
+      © 2026 Player 1 Arcade. All rights reserved.
+    </div>
+  </footer>
+
+</div>
+
+<script>
+  // ── Mobile menu ──────────────────────────────
+  document.getElementById('menu-btn').addEventListener('click', function() {
+    document.getElementById('mobile-nav').classList.toggle('open');
+  });
+
+  // ── Scroll reveal ────────────────────────────
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  reveals.forEach(el => observer.observe(el));
+
+  // ── FAQ accordion ────────────────────────────
+  document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', function() {
+      const item = this.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+      // Toggle current
+      if (!isOpen) item.classList.add('open');
+    });
+  });
+
+  // ── Contact form ─────────────────────────────
+  document.getElementById('form-submit').addEventListener('click', function() {
+    const name = document.querySelector('input[name="name"]').value.trim();
+    const email = document.querySelector('input[name="email"]').value.trim();
+    const msg = document.querySelector('textarea[name="message"]').value.trim();
+    if (!name || !email || !msg) {
+      this.style.background = 'rgba(255,60,172,0.3)';
+      this.textContent = '⚠ Please fill in all required fields';
+      setTimeout(() => {
+        this.style.background = '';
+        this.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14.536 21.686a.5.5 0 0 0 .937-.024l6.5-19a.496.496 0 0 0-.635-.635l-19 6.5a.5.5 0 0 0-.024.937l7.93 3.18a2 2 0 0 1 1.112 1.11z"/><path d="m21.854 2.147-10.94 10.939"/></svg> Send message';
+      }, 2500);
+      return;
+    }
+    document.getElementById('form-main').style.display = 'none';
+    document.getElementById('form-success').style.display = 'block';
+  });
+</script>
+</body>
+</html>
