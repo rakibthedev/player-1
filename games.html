@@ -24,197 +24,66 @@
 
 <body>
   <div class="flex min-h-screen flex-col bg-background">
-		<header class="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl">
-			<div class="mx-auto flex max-w-7xl items-center justify-between px-5 py-4"><a aria-label="Player 1 home"
-					href="/" class="group flex items-center"><img
-						alt="Player 1 arcade logo"
-						class="h-10 w-auto md:h-12 animate-pulse-glow transition-transform group-hover:scale-105"
-						src="./assets/player1-logo-lBeeIn9W.png"></a>
-				<nav class="hidden items-center gap-1 md:flex"><a href="/"
-						class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground">Home</a><a
-						href="/about.html"
-						class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground">About</a><a
-						class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground text-foreground bg-muted"
-						href="/games.html" data-status="active"
-						aria-current="page">Games</a><a href="/parties.html"
-						class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground">Parties</a><a
-						href="/contact.html"
-						class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground">Contact</a><a
-						href="/contact.html"
-						class="ml-3 rounded-full bg-accent px-5 py-2 text-sm font-bold text-accent-foreground transition hover:scale-105 ring-glow-yellow">Plan
-						a Visit</a></nav><button class="md:hidden rounded-md p-2 text-foreground"
-					aria-label="Toggle menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-						viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-						stroke-linejoin="round" class="lucide lucide-menu" aria-hidden="true">
-						<path d="M4 5h16"></path>
-						<path d="M4 12h16"></path>
-						<path d="M4 19h16"></path>
-					</svg></button>
-			</div>
-		</header>
+		  <!-- ═══════════════════ HEADER ═══════════════════ -->
+  <header class="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl">
+    <div class="page-container">
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;">
+        <a aria-label="Player 1 home" href="/" class="group flex items-center">
+          <img alt="Player 1" class="h-10 w-auto md:h-12 animate-pulse-glow transition-transform group-hover:scale-105" src="./assets/player1-logo-lBeeIn9W.png" />
+        </a>
+        <nav class="hidden items-center gap-1 md:flex">
+          <a href="/" class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground">Home</a>
+          <a href="/about.html" class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground">About</a>
+          <a href="/games.html" class="rounded-full px-4 py-2 text-sm font-medium text-foreground bg-muted">Games</a>
+          <a href="/parties.html" class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground">Parties</a>
+          <a href="contact.html" class="rounded-full px-4 py-2 text-sm font-medium text-muted-foreground transition hover:text-foreground">Contact</a>
+          <a href="contact.html" class="ml-3 rounded-full bg-accent px-5 py-2 text-sm font-bold text-accent-foreground transition hover:scale-105 ring-glow-yellow">Plan a Visit</a>
+        </nav>
+        <button id="menu-btn" class="md:hidden rounded-md p-2 text-foreground" aria-label="Toggle menu">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/>
+          </svg>
+        </button>
+      </div>
+    </div>
+    <!-- Mobile Nav -->
+    <div id="mobile-nav">
+      <a href="/">Home</a>
+      <a href="/about.html">About</a>
+      <a href="/games.html" class="active-link">Games</a>
+      <a href="/parties.html">Parties</a>
+      <a href="contact.html">Contact</a>
+      <a href="contact.html" class="cta-mobile">Plan a Visit ↗</a>
+    </div>
+  </header>
 		<main class="flex-1">
-			<section class="border-b border-border">
-				<div class="mx-auto max-w-7xl px-5 py-20 md:py-28">
-					<div class="text-xs uppercase tracking-widest text-secondary">The floor</div>
-					<h1 class="mt-3 font-display text-5xl font-black md:text-7xl">Games <span
-							class="gradient-neon-text">gallery</span></h1>
-					<p class="mt-4 max-w-xl text-muted-foreground">Tap-to-play across every cabinet. Top up your card
-						once, then jump from racing seats to dance pads to the prize wall.</p>
+			 <section class="relative overflow-hidden border-b border-border">
+				<div class="mx-auto max-w-7xl" style="background: url('./assets/hero-arcade-DlBj_60S.jpg') center/cover no-repeat;">
+					<div class="bg-gradient-to-b from-background/40 to-background min-h-[60vh] md:min-h-[80vh] flex flex-col items-start justify-center px-5 py-20">
+						<div class="text-xs uppercase tracking-widest text-secondary">The floor</div>
+						<h1 class="mt-3 font-display text-5xl font-black md:text-7xl">Games <span
+								class="gradient-neon-text">gallery</span></h1>
+						<p class="mt-4 max-w-xl text-muted-foreground">Tap-to-play across every cabinet. Top up your card
+							once, then jump from racing seats to dance pads to the prize wall.</p>
+					</div>
 				</div>
 			</section>
 			<section class="mx-auto max-w-7xl px-5 py-12">
-				<div class="flex flex-wrap gap-2"><button
-						class="rounded-full border px-4 py-2 text-sm font-semibold transition border-primary bg-primary text-primary-foreground ring-glow-magenta">All</button><button
-						class="rounded-full border px-4 py-2 text-sm font-semibold transition border-border text-muted-foreground hover:border-foreground hover:text-foreground">Racing</button><button
-						class="rounded-full border px-4 py-2 text-sm font-semibold transition border-border text-muted-foreground hover:border-foreground hover:text-foreground">Sports</button><button
-						class="rounded-full border px-4 py-2 text-sm font-semibold transition border-border text-muted-foreground hover:border-foreground hover:text-foreground">Rhythm</button><button
-						class="rounded-full border px-4 py-2 text-sm font-semibold transition border-border text-muted-foreground hover:border-foreground hover:text-foreground">Shooters</button><button
-						class="rounded-full border px-4 py-2 text-sm font-semibold transition border-border text-muted-foreground hover:border-foreground hover:text-foreground">Prizes</button>
-				</div>
-				<div class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-					<article
-						class="group relative overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1">
-						<div class="aspect-[4/5] overflow-hidden bg-background"><img alt="Apex Racer" width="1024"
-								height="1280" loading="lazy"
-								class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-								src="./assets/game-racing-cP_G6Dh3.jpg"></div>
-						<div class="flex items-center justify-between p-5">
-							<div>
-								<div class="text-xs uppercase tracking-widest text-primary">Racing</div>
-								<h3 class="font-display text-xl font-extrabold">Apex Racer</h3>
-							</div><span
-								class="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">1–2
-								players</span>
-						</div>
-					</article>
-					<article
-						class="group relative overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1">
-						<div class="aspect-[4/5] overflow-hidden bg-background"><img alt="Hoops Heat" width="1024"
-								height="1280" loading="lazy"
-								class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-								src="./assets/game-basketball-DbW0GDyb.jpg"></div>
-						<div class="flex items-center justify-between p-5">
-							<div>
-								<div class="text-xs uppercase tracking-widest text-accent">Sports</div>
-								<h3 class="font-display text-xl font-extrabold">Hoops Heat</h3>
-							</div><span
-								class="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">1–2
-								players</span>
-						</div>
-					</article>
-					<article
-						class="group relative overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1">
-						<div class="aspect-[4/5] overflow-hidden bg-background"><img alt="Neon Air Hockey" width="1024"
-								height="1280" loading="lazy"
-								class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-								src="./assets/game-airhockey-DlqbI9mw.jpg"></div>
-						<div class="flex items-center justify-between p-5">
-							<div>
-								<div class="text-xs uppercase tracking-widest text-secondary">Sports</div>
-								<h3 class="font-display text-xl font-extrabold">Neon Air Hockey</h3>
-							</div><span
-								class="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">2
-								players</span>
-						</div>
-					</article>
-					<article
-						class="group relative overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1">
-						<div class="aspect-[4/5] overflow-hidden bg-background"><img alt="Dance Floor" width="1024"
-								height="1280" loading="lazy"
-								class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-								src="./assets/game-dance-P5pxon3F.jpg"></div>
-						<div class="flex items-center justify-between p-5">
-							<div>
-								<div class="text-xs uppercase tracking-widest text-primary">Rhythm</div>
-								<h3 class="font-display text-xl font-extrabold">Dance Floor</h3>
-							</div><span
-								class="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">1–2
-								players</span>
-						</div>
-					</article>
-					<article
-						class="group relative overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1">
-						<div class="aspect-[4/5] overflow-hidden bg-background"><img alt="Galaxy Shooter" width="1024"
-								height="1280" loading="lazy"
-								class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-								src="./assets/game-shooter-D24CsLga.jpg"></div>
-						<div class="flex items-center justify-between p-5">
-							<div>
-								<div class="text-xs uppercase tracking-widest text-accent">Shooters</div>
-								<h3 class="font-display text-xl font-extrabold">Galaxy Shooter</h3>
-							</div><span
-								class="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">1–2
-								players</span>
-						</div>
-					</article>
-					<article
-						class="group relative overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1">
-						<div class="aspect-[4/5] overflow-hidden bg-background"><img alt="Plush Crane" width="1024"
-								height="1280" loading="lazy"
-								class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-								src="./assets/game-claw-D5BmoU3s.jpg"></div>
-						<div class="flex items-center justify-between p-5">
-							<div>
-								<div class="text-xs uppercase tracking-widest text-secondary">Prizes</div>
-								<h3 class="font-display text-xl font-extrabold">Plush Crane</h3>
-							</div><span
-								class="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">1
-								player</span>
-						</div>
-					</article>
-					<article
-						class="group relative overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1">
-						<div class="aspect-[4/5] overflow-hidden bg-background"><img alt="Sunset Drift" width="1024"
-								height="1280" loading="lazy"
-								class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-								src="./assets/game-racing-cP_G6Dh3.jpg"></div>
-						<div class="flex items-center justify-between p-5">
-							<div>
-								<div class="text-xs uppercase tracking-widest text-primary">Racing</div>
-								<h3 class="font-display text-xl font-extrabold">Sunset Drift</h3>
-							</div><span
-								class="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">1–2
-								players</span>
-						</div>
-					</article>
-					<article
-						class="group relative overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1">
-						<div class="aspect-[4/5] overflow-hidden bg-background"><img alt="Slam Dunk Pro" width="1024"
-								height="1280" loading="lazy"
-								class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-								src="./assets/game-basketball-DbW0GDyb.jpg"></div>
-						<div class="flex items-center justify-between p-5">
-							<div>
-								<div class="text-xs uppercase tracking-widest text-accent">Sports</div>
-								<h3 class="font-display text-xl font-extrabold">Slam Dunk Pro</h3>
-							</div><span
-								class="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">1–2
-								players</span>
-						</div>
-					</article>
-					<article
-						class="group relative overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1">
-						<div class="aspect-[4/5] overflow-hidden bg-background"><img alt="Beat Pulse" width="1024"
-								height="1280" loading="lazy"
-								class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
-								src="./assets/game-dance-P5pxon3F.jpg"></div>
-						<div class="flex items-center justify-between p-5">
-							<div>
-								<div class="text-xs uppercase tracking-widest text-secondary">Rhythm</div>
-								<h3 class="font-display text-xl font-extrabold">Beat Pulse</h3>
-							</div><span
-								class="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground">1–2
-								players</span>
-						</div>
-					</article>
-				</div>
+				<!-- Filter Buttons -->
+				<div class="flex gap-2 overflow-auto py-2 whitespace-nowrap" id="filterButtons"></div>
+
+				<!-- Games Grid -->
+				<div
+				id="gamesContainer"
+				class="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-3"
+				></div>
 				<p class="mt-12 text-center text-sm text-muted-foreground">Line-up rotates regularly — drop in to see
 					what's new on the floor.</p>
 			</section>
 		</main>
 		<footer class="border-t border-border/60 bg-card/40">
 			<div class="mx-auto grid max-w-7xl gap-10 px-5 py-14 md:grid-cols-4">
-				<div class="md:col-span-2"><img alt="Player 1 logo" class="h-14 w-auto animate-pulse-glow"
+				<div class="md:col-span-2"><img alt="Player 1" class="h-14 w-auto animate-pulse-glow"
 						src="./assets/player1-logo-lBeeIn9W.png">
 					<p class="mt-3 max-w-sm text-sm text-muted-foreground">A bright, card-powered arcade built for
 						nights out, family afternoons and unforgettable parties. No coins. Just play.</p>
@@ -281,6 +150,116 @@
 				Arcade. All rights reserved.</div>
 		</footer>
 	</div>
+
+	<script>
+		  // ── Mobile menu ──────────────────────────────
+		document.getElementById('menu-btn').addEventListener('click', function() {
+			document.getElementById('mobile-nav').classList.toggle('open');
+		});
+
+
+		const gamesContainer = document.getElementById("gamesContainer");
+		const filterButtons = document.getElementById("filterButtons");
+
+		let allGames = [];
+
+		// Fetch JSON
+		fetch("./games.json")
+		.then((res) => res.json())
+		.then((data) => {
+			allGames = data.games;
+
+			// Create category buttons
+			createFilterButtons(allGames);
+
+			// Show all games initially
+			renderGames(allGames);
+		});
+
+		// Render Games
+		function renderGames(games) {
+		gamesContainer.innerHTML = "";
+
+		games.forEach((game) => {
+			gamesContainer.innerHTML += `
+			<article
+				class="group relative overflow-hidden rounded-2xl border border-border bg-card transition hover:-translate-y-1"
+			>
+				<div class="aspect-[4/5] overflow-hidden bg-background">
+				<img
+					alt="${game.name}"
+					class="h-full w-full object-cover transition duration-700 group-hover:scale-105"
+					src="./assets/images/games/${game.src}"
+				/>
+				</div>
+
+				<div class="flex items-center justify-between p-5">
+				<div>
+					<div class="text-xs uppercase tracking-widest text-primary">
+					${game.category}
+					</div>
+
+					<h3 class="font-display text-xl font-extrabold">
+					${game.name}
+					</h3>
+				</div>
+
+				<span
+					class="rounded-full border border-border px-3 py-1 text-xs text-muted-foreground"
+				>
+					${game.player}
+				</span>
+				</div>
+			</article>
+			`;
+		});
+		}
+
+
+
+		// Create Filter Buttons
+		function createFilterButtons(games) {
+		const categories = [
+			"All",
+			...new Set(games.map((game) => game.category)),
+		];
+
+		categories.forEach((category, index) => {
+			const button = document.createElement("button");
+
+			button.textContent = category;
+
+			button.className =
+			index === 0
+				? "cursor-pointer rounded-full border px-4 py-2 text-sm font-semibold transition border-primary bg-primary text-primary-foreground"
+				: "cursor-pointer rounded-full border px-4 py-2 text-sm font-semibold transition border-border text-muted-foreground hover:border-foreground hover:text-foreground";
+
+			button.addEventListener("click", () => {
+			// Active button style
+			document.querySelectorAll("#filterButtons button").forEach((btn) => {
+				btn.className =
+				"cursor-pointer rounded-full border px-4 py-2 text-sm font-semibold transition border-border text-muted-foreground hover:border-foreground hover:text-foreground";
+			});
+
+			button.className =
+				"cursor-pointer rounded-full border px-4 py-2 text-sm font-semibold transition border-primary bg-primary text-primary-foreground";
+
+			// Filter games
+			if (category === "All") {
+				renderGames(allGames);
+			} else {
+				const filteredGames = allGames.filter(
+				(game) => game.category === category
+				);
+
+				renderGames(filteredGames);
+			}
+			});
+
+			filterButtons.appendChild(button);
+		});
+		}
+	</script>
 </body>
 
 </html>

@@ -4157,3 +4157,43 @@
 .animate-pulse-glow {
     animation: unset !important;
 }
+
+
+
+ /* ── Premium mobile nav ─────── */
+    #mobile-nav {
+      display: none;
+      flex-direction: column;
+      gap: 4px;
+      padding: 16px 20px 20px;
+      border-top: 1px solid var(--border);
+      background: color-mix(in oklab, var(--background) 95%, transparent);
+      backdrop-filter: blur(24px);
+    }
+    #mobile-nav.open { display: flex; }
+    #mobile-nav a {
+      padding: 10px 16px;
+      border-radius: 12px;
+      font-weight: 600;
+      font-size: 0.9375rem;
+      color: var(--muted-foreground);
+      transition: all 0.15s;
+    }
+    #mobile-nav a:hover, #mobile-nav a.active-link {
+      background: var(--card);
+      color: var(--foreground);
+    }
+    #mobile-nav .cta-mobile {
+      margin-top: 8px;
+      background: var(--accent);
+      color: var(--accent-foreground);
+      text-align: center;
+      border-radius: 999px;
+      font-weight: 700;
+    }
+
+    .page-container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 0 20px;
+}

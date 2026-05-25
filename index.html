@@ -20,7 +20,7 @@
   <meta name="description" content="Your neighbourhood arcade. 50+ card-powered games, private party packages, and nights that glow. No coins, just play." />
   <meta property="og:title" content="Player 1 Arcade" />
   <meta property="og:description" content="50+ card-powered games and unforgettable party packages. No coins, just play." />
-
+  <link rel="icon" href="./assets/favicon-92x92.png" />
   <style>
     /* ─── Premium Enhancement Layer ─────────────────────────────────── */
     :root {
@@ -91,38 +91,6 @@
       );
       z-index: 9999;
     } */
-
-    /* ── Premium mobile nav ─────── */
-    #mobile-nav {
-      display: none;
-      flex-direction: column;
-      gap: 4px;
-      padding: 16px 20px 20px;
-      border-top: 1px solid var(--border);
-      background: color-mix(in oklab, var(--background) 95%, transparent);
-      backdrop-filter: blur(24px);
-    }
-    #mobile-nav.open { display: flex; }
-    #mobile-nav a {
-      padding: 10px 16px;
-      border-radius: 12px;
-      font-weight: 600;
-      font-size: 0.9375rem;
-      color: var(--muted-foreground);
-      transition: all 0.15s;
-    }
-    #mobile-nav a:hover, #mobile-nav a.active-link {
-      background: var(--card);
-      color: var(--foreground);
-    }
-    #mobile-nav .cta-mobile {
-      margin-top: 8px;
-      background: var(--accent);
-      color: var(--accent-foreground);
-      text-align: center;
-      border-radius: 999px;
-      font-weight: 700;
-    }
 
     /* ── Hero enhancements ──────── */
     .hero-bg-orb {
@@ -787,7 +755,7 @@
     <div class="page-container">
       <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;">
         <a aria-label="Player 1 home" href="/" class="group flex items-center">
-          <img alt="Player 1 arcade logo" class="h-10 w-auto md:h-12 animate-pulse-glow transition-transform group-hover:scale-105" src="./assets/player1-logo-lBeeIn9W.png" />
+          <img alt="Player 1" class="h-10 w-auto md:h-12 animate-pulse-glow transition-transform group-hover:scale-105" src="./assets/player1-logo-lBeeIn9W.png" />
         </a>
         <nav class="hidden items-center gap-1 md:flex">
           <a href="/" class="rounded-full px-4 py-2 text-sm font-medium text-foreground bg-muted">Home</a>
@@ -961,29 +929,11 @@
             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
           </a>
         </div>
-        <div style="margin-top:40px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));">
-          <div class="group relative overflow-hidden rounded-2xl border border-border bg-background reveal reveal-delay-1">
-            <img alt="Apex Racer" width="1024" height="1280" loading="lazy" class="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-105" src="./assets/game-racing-cP_G6Dh3.jpg" />
-            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/70 to-transparent p-5">
-              <div class="text-xs uppercase tracking-widest text-primary">Racing</div>
-              <div class="font-display text-2xl font-extrabold">Apex Racer</div>
-            </div>
-          </div>
-          <div class="group relative overflow-hidden rounded-2xl border border-border bg-background reveal reveal-delay-2">
-            <img alt="Hoops Heat" width="1024" height="1280" loading="lazy" class="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-105" src="./assets/game-basketball-DbW0GDyb.jpg" />
-            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/70 to-transparent p-5">
-              <div class="text-xs uppercase tracking-widest text-accent">Sports</div>
-              <div class="font-display text-2xl font-extrabold">Hoops Heat</div>
-            </div>
-          </div>
-          <div class="group relative overflow-hidden rounded-2xl border border-border bg-background reveal reveal-delay-3">
-            <img alt="Dance Floor" width="1024" height="1280" loading="lazy" class="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-105" src="./assets/game-dance-P5pxon3F.jpg" />
-            <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/70 to-transparent p-5">
-              <div class="text-xs uppercase tracking-widest text-secondary">Rhythm</div>
-              <div class="font-display text-2xl font-extrabold">Dance Floor</div>
-            </div>
-          </div>
-        </div>
+        <!-- Featured Games Container -->
+        <div
+          id="featuredGames"
+          style="margin-top:40px;display:grid;gap:16px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));"
+        ></div>
         <div style="margin-top:32px;text-align:center;">
           <a href="/games.html" class="md:hidden inline-flex items-center gap-2 text-sm font-semibold text-foreground hover:text-primary">
             See all games
@@ -1389,6 +1339,58 @@
     document.getElementById('form-main').style.display = 'none';
     document.getElementById('form-success').style.display = 'block';
   });
+
+
+
+  // HOW MANY FAVOURITE GAMES TO SHOW
+const FEATURED_LIMIT = 3;
+
+const featuredGamesContainer = document.getElementById("featuredGames");
+
+// Fetch JSON
+fetch("./games.json")
+  .then((res) => res.json())
+  .then((data) => {
+    // Only favourite games
+    const featuredGames = data.games
+      .filter((game) => game.favourite === true)
+      .slice(0, FEATURED_LIMIT);
+
+    renderFeaturedGames(featuredGames);
+  });
+
+// Render Featured Games
+function renderFeaturedGames(games) {
+  featuredGamesContainer.innerHTML = "";
+
+  games.forEach((game, index) => {
+    featuredGamesContainer.innerHTML += `
+      <div class="group relative overflow-hidden rounded-2xl border border-border bg-background reveal-none reveal-delay-${
+        index + 1
+      }">
+
+        <img
+          alt="${game.name}"
+          loading="lazy"
+          class="aspect-[4/5] w-full object-cover transition duration-700 group-hover:scale-105"
+          src="./assets/images/games/${game.src}"
+        />
+
+        <div class="absolute inset-x-0 bottom-0 bg-gradient-to-t from-background via-background/70 to-transparent p-5">
+
+          <div class="text-xs uppercase tracking-widest text-primary">
+            ${game.category}
+          </div>
+
+          <div class="font-display text-2xl font-extrabold">
+            ${game.name}
+          </div>
+
+        </div>
+      </div>
+    `;
+  });
+}
 </script>
 </body>
 </html>
