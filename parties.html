@@ -21,7 +21,47 @@
   <meta property="og:description"
     content="50+ card-powered games and unforgettable party packages. No coins, just play." />
 </head>
+<style>
+	 :root {
+      --neon-magenta: #ff3cac;
+      --neon-cyan: #00f5d4;
+      --neon-yellow: #ffe600;
+      --neon-purple: #9b5de5;
+      --glow-sm: 0 0 8px currentColor;
+      --glow-md: 0 0 20px currentColor, 0 0 40px currentColor;
+    }
 
+    /* Scroll animations */
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to   { opacity: 1; }
+    }
+    @keyframes scanLine {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(100vh); }
+    }
+    @keyframes glitch {
+      0%, 100% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+      10% { clip-path: inset(10% 0 60% 0); transform: translate(-4px, 2px); }
+      20% { clip-path: inset(60% 0 10% 0); transform: translate(4px, -2px); }
+      30% { clip-path: inset(30% 0 40% 0); transform: translate(-2px, 0); }
+      40% { clip-path: inset(80% 0 5%  0); transform: translate(2px, 1px);  }
+      50% { clip-path: inset(0 0 100% 0); transform: translate(0); }
+    }
+    @keyframes countUp {
+      from { opacity:0; transform: scale(0.6); }
+      to   { opacity:1; transform: scale(1); }
+    }
+    @keyframes borderGlow {
+      0%,100% { box-shadow: 0 0 10px rgba(255,60,172,0.3), inset 0 0 10px rgba(255,60,172,0.05); }
+      50%      { box-shadow: 0 0 30px rgba(255,60,172,0.6), inset 0 0 20px rgba(255,60,172,0.1); }
+    }
+
+</style>
 <body>
  <div class="flex min-h-screen flex-col bg-background">
   <header class="sticky top-0 z-50 border-b border-border/60 bg-background/80 backdrop-blur-xl">
@@ -63,7 +103,7 @@
 					<div class="absolute inset-0 bg-gradient-to-b from-background/40 via-background/60 to-background">
 					</div>
 				</div>
-				<div class="relative mx-auto max-w-5xl px-5 py-24 md:py-32">
+				<div class="relative mx-auto max-w-7xl px-5 py-24 md:py-32">
 					<div class="text-xs uppercase tracking-widest text-accent">Parties &amp; events</div>
 					<h1 class="mt-3 font-display text-5xl font-black md:text-7xl">Throw a party that <span
 							class="text-glow-magenta text-primary">glows.</span></h1>
@@ -75,169 +115,55 @@
 				</div>
 			</section>
 			<section class="mx-auto max-w-7xl px-5 py-24">
-				<div class="grid gap-6 lg:grid-cols-3">
-					<div class="relative flex flex-col rounded-3xl border border-border bg-card p-8 ring-glow-magenta">
-						<span
-							class="absolute -top-3 left-8 rounded-full bg-primary px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary-foreground">Most
-							booked</span>
-						<div class="mb-5 grid h-12 w-12 place-items-center rounded-xl bg-background ring-glow-magenta">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-								fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-								stroke-linejoin="round" class="lucide lucide-cake h-5 w-5 text-primary"
-								aria-hidden="true">
-								<path d="M20 21v-8a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v8"></path>
-								<path d="M4 16s.5-1 2-1 2.5 2 4 2 2.5-2 4-2 2.5 2 4 2 2-1 2-1"></path>
-								<path d="M2 21h20"></path>
-								<path d="M7 8v3"></path>
-								<path d="M12 8v3"></path>
-								<path d="M17 8v3"></path>
-								<path d="M7 4h.01"></path>
-								<path d="M12 4h.01"></path>
-								<path d="M17 4h.01"></path>
-							</svg></div>
-						<h3 class="font-display text-2xl font-extrabold">Kids' Birthday</h3>
-						<div class="mt-2 flex items-baseline gap-2"><span class="font-display text-4xl font-black">From
-								$24</span><span class="text-sm text-muted-foreground">per child</span></div>
-						<ul class="mt-6 space-y-2.5 text-sm">
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>2 hours of card-powered play</span></li>
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Reserved party booth</span></li>
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Cake station + party host</span></li>
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Themed loot bags</span></li>
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-primary" aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Pizza &amp; drinks combo</span></li>
-						</ul><a href="/contact.html"
-							class="mt-8 inline-flex justify-center rounded-full border border-border px-5 py-3 font-semibold transition hover:border-foreground">Enquire</a>
-					</div>
-					<div class="relative flex flex-col rounded-3xl border border-border bg-card p-8 ">
-						<div class="mb-5 grid h-12 w-12 place-items-center rounded-xl bg-background ring-glow-cyan"><svg
-								xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-								fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-								stroke-linejoin="round" class="lucide lucide-users h-5 w-5 text-secondary"
-								aria-hidden="true">
-								<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-								<path d="M16 3.128a4 4 0 0 1 0 7.744"></path>
-								<path d="M22 21v-2a4 4 0 0 0-3-3.87"></path>
-								<circle cx="9" cy="7" r="4"></circle>
-							</svg></div>
-						<h3 class="font-display text-2xl font-extrabold">Team &amp; Social</h3>
-						<div class="mt-2 flex items-baseline gap-2"><span class="font-display text-4xl font-black">From
-								$32</span><span class="text-sm text-muted-foreground">per guest</span></div>
-						<ul class="mt-6 space-y-2.5 text-sm">
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-secondary"
-									aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>3 hours unlimited play</span></li>
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-secondary"
-									aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Reserved area for up to 30</span></li>
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-secondary"
-									aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Custom leaderboard tournament</span></li>
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-secondary"
-									aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Snacks &amp; drink package</span></li>
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-secondary"
-									aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Optional bar tab</span></li>
-						</ul><a href="/contact.html"
-							class="mt-8 inline-flex justify-center rounded-full border border-border px-5 py-3 font-semibold transition hover:border-foreground">Enquire</a>
-					</div>
-					<div class="relative flex flex-col rounded-3xl border border-border bg-card p-8 ">
-						<div class="mb-5 grid h-12 w-12 place-items-center rounded-xl bg-background ring-glow-yellow">
-							<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-								fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-								stroke-linejoin="round"
-								class="lucide lucide-building2 lucide-building-2 h-5 w-5 text-accent"
-								aria-hidden="true">
-								<path d="M10 12h4"></path>
-								<path d="M10 8h4"></path>
-								<path d="M14 21v-3a2 2 0 0 0-4 0v3"></path>
-								<path d="M6 10H4a2 2 0 0 0-2 2v7a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V9a2 2 0 0 0-2-2h-2">
-								</path>
-								<path d="M6 21V5a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v16"></path>
-							</svg></div>
-						<h3 class="font-display text-2xl font-extrabold">Private Hire</h3>
-						<div class="mt-2 flex items-baseline gap-2"><span
-								class="font-display text-4xl font-black">Custom</span><span
-								class="text-sm text-muted-foreground">venue takeover</span></div>
-						<ul class="mt-6 space-y-2.5 text-sm">
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Exclusive use of the floor</span></li>
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Branded play cards</span></li>
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Dedicated event manager</span></li>
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Catering options</span></li>
-							<li class="flex gap-2 text-muted-foreground"><svg xmlns="http://www.w3.org/2000/svg"
-									width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-									stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-									class="lucide lucide-check mt-0.5 h-4 w-4 shrink-0 text-accent" aria-hidden="true">
-									<path d="M20 6 9 17l-5-5"></path>
-								</svg> <span>Tailored bar &amp; DJ add-ons</span></li>
-						</ul><a href="/contact.html"
-							class="mt-8 inline-flex justify-center rounded-full border border-border px-5 py-3 font-semibold transition hover:border-foreground">Enquire</a>
-					</div>
-				</div>
+				<div class="party-grid" style="margin-top: 0;">
+          <!-- Basic -->
+          <div class="party-card reveal reveal-delay-1">
+            <span class="party-badge" style="background:rgba(0,245,212,0.1);color:var(--neon-cyan);">Starter</span>
+            <div class="party-price text-secondary">$149</div>
+            <div class="party-price-sub">up to 8 guests · 2 hours</div>
+            <div class="party-name">Level Up</div>
+            <p class="party-desc">Perfect for smaller groups ready to dive in. Games, snacks, and good vibes guaranteed.</p>
+            <ul class="party-features">
+              <li class="party-feature"><span class="party-feature-check">✓</span> 8 play cards (100 credits each)</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Reserved seating area</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Welcome soft drinks</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Birthday banner</li>
+            </ul>
+            <a href="contact.html" class="party-cta" style="background:var(--card);border:1px solid var(--border);color:var(--foreground);">Book this package</a>
+          </div>
+          <!-- Popular -->
+          <div class="party-card featured reveal reveal-delay-2">
+            <span class="party-badge" style="background:rgba(255,60,172,0.15);color:var(--neon-magenta);">Most Popular ★</span>
+            <div class="party-price text-primary">$279</div>
+            <div class="party-price-sub">up to 16 guests · 3 hours</div>
+            <div class="party-name">Power Play</div>
+            <p class="party-desc">Our most-booked package. Everything you need to run a seriously fun party, fully taken care of.</p>
+            <ul class="party-features">
+              <li class="party-feature"><span class="party-feature-check">✓</span> 16 play cards (150 credits each)</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Private party zone</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Pizza &amp; drinks included</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Dedicated party host</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Prize wall voucher</li>
+            </ul>
+            <a href="contact.html" class="party-cta" style="background:var(--primary);color:var(--primary-foreground);">Book this package</a>
+          </div>
+          <!-- VIP -->
+          <div class="party-card reveal reveal-delay-3">
+            <span class="party-badge" style="background:rgba(255,230,0,0.1);color:var(--neon-yellow);">VIP</span>
+            <div class="party-price text-accent">$499</div>
+            <div class="party-price-sub">up to 30 guests · full evening</div>
+            <div class="party-name">Full Arcade</div>
+            <p class="party-desc">Exclusive venue access after hours. The whole floor is yours — no sharing, just playing.</p>
+            <ul class="party-features">
+              <li class="party-feature"><span class="party-feature-check">✓</span> Exclusive arcade access</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Unlimited play cards</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Full catering service</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> DJ / music system</li>
+              <li class="party-feature"><span class="party-feature-check">✓</span> Custom branding &amp; decor</li>
+            </ul>
+            <a href="contact.html" class="party-cta" style="background:var(--accent);color:var(--accent-foreground);">Book this package</a>
+          </div>
+        </div>
 				<div class="mt-20 rounded-3xl border border-border bg-card p-10 md:p-14">
 					<div class="grid gap-8 md:grid-cols-2 md:items-center">
 						<div>

@@ -4197,3 +4197,73 @@
     margin: 0 auto;
     padding: 0 20px;
 }
+
+
+
+    /* ── Party packages ─────────── */
+    .party-section {
+      padding: 100px 0;
+      border-top: 1px solid var(--border);
+    }
+    .party-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+      margin-top: 52px;
+    }
+    .party-card {
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 32px;
+      background: var(--card);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s, border-color 0.25s;
+    }
+    .party-card:hover { transform: translateY(-5px); }
+    .party-card.featured {
+      border-color: var(--neon-magenta);
+      box-shadow: 0 0 0 1px var(--neon-magenta), 0 0 40px rgba(255,60,172,0.15);
+      animation: borderGlow 3s ease-in-out infinite;
+    }
+    .party-badge {
+      display: inline-block;
+      padding: 3px 12px;
+      border-radius: 999px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+    }
+    .party-price {
+      font-family: var(--font-display, 'Outfit', sans-serif);
+      font-size: 2.75rem;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+    }
+    .party-price-sub { font-size: 0.8125rem; color: var(--muted-foreground); margin-top: 4px; }
+    .party-name {
+      font-family: var(--font-display, 'Outfit', sans-serif);
+      font-size: 1.375rem;
+      font-weight: 800;
+      margin: 16px 0 8px;
+    }
+    .party-desc { font-size: 0.875rem; color: var(--muted-foreground); margin-bottom: 20px; line-height: 1.6; }
+    .party-features { list-style: none; padding: 0; margin: 0 0 28px; display: flex; flex-direction: column; gap: 8px; }
+    .party-feature { display: flex; align-items: flex-start; gap: 8px; font-size: 0.875rem; }
+    .party-feature-check { color: var(--neon-cyan); flex-shrink: 0; margin-top: 2px; }
+    .party-cta {
+      display: block;
+      width: 100%;
+      padding: 12px;
+      border-radius: 14px;
+      text-align: center;
+      font-weight: 700;
+      font-size: 0.9375rem;
+      transition: all 0.2s;
+      cursor: pointer;
+    }
+
+    
