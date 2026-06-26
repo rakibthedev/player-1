@@ -1,0 +1,133 @@
+/* ============================================================
+   Player 1 — Professional Refinement Layer
+   Loaded AFTER styles.css. Tightens spacing, typography, depth
+   and component polish across every page. No markup required.
+   ============================================================ */
+
+/* ---------- Global polish ---------- */
+html { scroll-behavior: smooth; }
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+/* Subtle depth so the flat near-black background reads richer */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background:
+    radial-gradient(1100px 620px at 78% -8%, rgba(0, 232, 255, 0.07), transparent 60%),
+    radial-gradient(950px 600px at -5% 0%, rgba(255, 60, 172, 0.07), transparent 55%);
+}
+
+::selection { background: rgba(255, 60, 172, 0.30); color: #fff; }
+
+* { scrollbar-width: thin; scrollbar-color: rgba(255, 255, 255, 0.18) transparent; }
+*::-webkit-scrollbar { width: 10px; height: 10px; }
+*::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.15); border-radius: 999px; }
+*::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.28); }
+
+img { -webkit-user-drag: none; user-select: none; }
+
+/* ---------- Typography ---------- */
+h1, h2, h3 { text-wrap: balance; letter-spacing: -0.03em; }
+p { text-wrap: pretty; }
+.font-display { letter-spacing: -0.035em; }
+
+.gradient-neon-text,
+.animate-rainbow {
+  /* use background-image longhand — the `background` shorthand would reset background-clip */
+  background-image: linear-gradient(100deg, var(--neon-magenta), var(--neon-yellow) 55%, var(--neon-cyan)) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  color: transparent;
+  animation: none !important;
+  filter: none !important;
+  -webkit-font-smoothing: antialiased;
+}
+.animate-flicker { animation: none !important; opacity: 1 !important; }
+
+/* Softer, more tasteful neon glow */
+.text-glow-magenta, .text-glow-cyan, .text-glow-yellow {
+  text-shadow: 0 0 22px color-mix(in oklab, currentColor 35%, transparent);
+}
+
+/* ---------- Header ---------- */
+header.sticky { backdrop-filter: blur(18px) saturate(140%); }
+header nav a.rounded-full { transition: background .2s ease, color .2s ease; }
+header nav a.rounded-full:not(.bg-accent):not(.bg-muted):hover {
+  background: rgba(255, 255, 255, 0.06);
+}
+
+/* ---------- Buttons / pills ---------- */
+a.rounded-full[class*="bg-"],
+button.rounded-full[class*="bg-"],
+.party-cta,
+.hero-btn-primary, .hero-btn-secondary,
+.cta-btn-primary, .cta-btn-secondary {
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+}
+a.rounded-full[class*="bg-"]:hover,
+button.rounded-full[class*="bg-"]:hover {
+  transform: translateY(-2px);
+}
+.party-cta:hover { transform: translateY(-2px); box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35); }
+
+/* ---------- Page hero (subpages: games / parties / contact) ---------- */
+/* Makes a hero-only page feel complete and centred rather than cut off */
+main > section:first-child {
+  display: flex;
+  align-items: center;
+  min-height: 56vh;
+}
+main > section:first-child > .relative,
+main > section:first-child > .mx-auto { width: 100%; }
+
+/* ---------- Marquee ---------- */
+.overflow-hidden.border-y {
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+.animate-marquee { font-size: 1.5rem; }
+.animate-marquee .text-glow-magenta,
+.animate-marquee .text-glow-cyan,
+.animate-marquee .text-glow-yellow {
+  text-shadow: 0 0 16px color-mix(in oklab, currentColor 30%, transparent);
+}
+
+/* ---------- Cards ---------- */
+.party-card,
+.contact-info-card,
+.rounded-2xl.border.bg-card,
+.rounded-3xl.border.bg-card {
+  transition: transform .25s ease, border-color .25s ease, box-shadow .25s ease;
+}
+.party-card:hover { box-shadow: 0 22px 50px rgba(0, 0, 0, 0.40); }
+#gamesContainer article:hover { box-shadow: 0 18px 44px rgba(0, 0, 0, 0.40); }
+
+.contact-info-card { align-items: center; }
+
+/* ---------- Forms ---------- */
+.p1-input, .input { transition: border-color .15s ease, box-shadow .15s ease, background .15s ease; }
+.p1-input:hover, .input:hover { border-color: rgba(255, 255, 255, 0.22); }
+
+/* ---------- Footer ---------- */
+footer a { transition: color .18s ease; }
+footer .rounded-full.border { transition: color .18s ease, border-color .18s ease, transform .18s ease; }
+footer .rounded-full.border:hover { transform: translateY(-2px); border-color: rgba(255, 255, 255, 0.28); }
+
+/* ---------- Reduced motion ---------- */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
